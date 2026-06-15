@@ -28,46 +28,38 @@ To implement HASH ALGORITHM
 
 ## Program:
 ```
-#include <stdio.h>
-#include <string.h>
-void computeSimpleHash(const char *message, unsigned char *hash) {
-    unsigned char temp = 0;
-    for (int i = 0; message[i] != '\0'; i++) {
-        temp = temp ^ message[i];  
-        temp += message[i];        
-    }
+def simple_hash(message):
+    h = 0
 
-    *hash = temp;
-}
-int main() {
-    char message[256];
-    unsigned char hash;
-    char receivedHash[3];
+    for ch in message:
+        h = h ^ ord(ch)
+        h = h + ord(ch)
 
-    printf("Enter the message: ");
-    scanf("%255s", message);
+    return h % 256
 
-    computeSimpleHash(message, &hash);
 
-    printf("Computed Hash (in hex): %02x\n", hash);
+print("HASH VERIFICATION ")
 
-    printf("Enter the received hash (in hex): ");
-    scanf("%2s", receivedHash);
+message = input("Enter message: ")
 
-    unsigned int receivedHashValue;
-    sscanf(receivedHash, "%02x", &receivedHashValue);
+hash_value = simple_hash(message)
 
-    if (hash == (unsigned char)receivedHashValue) {
-        printf("Hash verification successful. Message is unchanged.\n");
-    } else {
-        printf("Hash verification failed. Message has been altered.\n");
-    }
-    return 0;
-}
+print("Computed Hash Value:", format(hash_value, '02x'))
+
+received = input("Enter received hash: ")
+
+print("Checking Hash Value...")
+
+if format(hash_value, '02x') == received:
+    print("Hash Verification Successful")
+    print("Message is not changed")
+else:
+    print("Hash Verification Failed")
+    print("Message has been altered")
 ```
 
 ## Output:
-<img width="1268" height="863" alt="Screenshot 2026-05-26 at 14-14-06 Online C Compiler - Programiz" src="https://github.com/user-attachments/assets/efba55ef-5460-4c31-9508-f8dd99827810" />
+<img width="317" height="158" alt="image" src="https://github.com/user-attachments/assets/e7eac411-4887-4239-997a-a90c0c9e4e21" />
 
 
 ## Result:
